@@ -20,6 +20,7 @@ public class Director extends Agent {
     }
 
     public void pre_protocol() {
+        System.out.println("\t The Director starts the round");
         int inside = Students_Inside.intValue();
         if (inside == 0) {
             State = STATE.OUTSIDE;
@@ -37,8 +38,8 @@ public class Director extends Agent {
             System.out.println("\t The Director waits to enter. Doesn't disturb the students");
             // TO DO
         } else {
-            System.out.println("\t The Director enters the study room: THE PARTY IS OVER");
-            // TO DO
+            System.out.println("\t The Director enters the study room: THE PARTY IS OVER!");
+            cleanStudyRoom();
         }
     }
 
@@ -49,6 +50,10 @@ public class Director extends Agent {
 
     protected STATE getStatus() {
         return this.State;
+    }
+
+    private void cleanStudyRoom(){
+
     }
 
 }

@@ -33,11 +33,16 @@ public class Student extends Agent {
 
     @Override
     public void post_protocol() {
-        System.out.println(this.NAME + "enters the study room, number of students: " + Students_Inside);
+        System.out.println(this.NAME + " enters the study room, number of students: " + Students_Inside);
         if (Students_Inside.intValue() <= Students_For_Party) {
-            System.out.println(this.NAME + "studies");
+            System.out.println(this.NAME + " studies");
         } else {
             System.out.println(this.NAME + ": PARTY!!!!!");
+        }
+        try {
+            Thread.sleep(STUDY_TIME);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
