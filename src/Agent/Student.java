@@ -2,8 +2,15 @@ package Agent;
 
 public class Student extends Agent {
 
-    public Student(String name, int id) {
-        super(name, id);
+    private final String NAME;
+
+    public Student(int id, String name) {
+        super(id);
+        this.NAME = name;
+    }
+
+    public String getName(){
+        return this.NAME;
     }
 
     public String toString() {

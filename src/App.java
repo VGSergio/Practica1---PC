@@ -44,13 +44,13 @@ public class App {
         Director director = new Director(1);
 
         // Create Director Thread
-        Thread d = new Thread(director, "director");
+        Thread d = new Thread(director, "Director");
         threads[0] = d;
 
         // Create students threads
         for (int i = 1; i <= Num_Students; i++) { // i <= Num_Students due to the director
             String name = "Student" + i;
-            Student student = new Student(name, i);
+            Student student = new Student(i, name);
             Thread s = new Thread(student, name);
             threads[i] = s;
         }
