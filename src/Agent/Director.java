@@ -1,28 +1,45 @@
 package Agent;
 
-import java.util.Set;
-
 public class Director extends Agent {
 
-    private static final Set<String> VALID_STATUS = Set.of("FORA", "ESPERANT", "DINS");
+    static private final int NUM_OF_ROUNDS = 3;
 
-    private String Status;
+    static public enum STATE {
+        OUTSIDE, WAITING, INSIDE
+    }
+
+    private int Round = 1;
+    private STATE State;
 
     public Director(int id) {
         super(id);
-        this.Status = "FORA";
+        this.State = STATE.OUTSIDE;
     }
 
-    public String getStatus() {
-        return this.Status;
-    }
-
-    public void getStatus(String Status) {
-        if (VALID_STATUS.contains(Status)) {
-            this.Status = Status;
-        } else {
-            System.err.println("Invalid director status" + Status);
+    public void run() {
+        while (Round <= NUM_OF_ROUNDS) {
+            pre_protocol();
+            critical_section();
+            post_protocol();
         }
+    }
+
+    public void pre_protocol() {
+        System.out.println("\t Mr. Director starts the round");
+
+    }
+
+    public void critical_section() {
+
+    }
+
+    public void post_protocol() {
+        System.out.println("\t The Director ends the round " + Round + " of " + NUM_OF_ROUNDS);
+        Round++;
+    }
+
+    public STATE getStatus() {
+        return this.State;
     }
 
     public String toString() {
