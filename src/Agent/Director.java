@@ -2,13 +2,10 @@ package Agent;
 
 public class Director extends Agent {
 
-    static protected enum STATE {
-        OUTSIDE, WAITING, INSIDE
-    };
-
+    protected STATE State;
+    
     private final int NUM_OF_ROUNDS = 3;
     private int Round = 1;
-    private STATE State;
 
     public Director(int id) {
         super(id);

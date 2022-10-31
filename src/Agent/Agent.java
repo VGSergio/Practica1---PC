@@ -11,6 +11,9 @@ public abstract class Agent implements Runnable {
     protected static int Num_Students;
     protected static int Students_For_Party;
     protected static Director Director;
+    protected enum STATE {
+        OUTSIDE, WAITING, INSIDE
+    };
 
     private final int ID;
 
