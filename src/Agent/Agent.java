@@ -10,17 +10,18 @@ public abstract class Agent implements Runnable {
     protected static AtomicInteger Students_Count = new AtomicInteger(0);
     protected static int Num_Students;
     protected static int Students_For_Party;
+    protected static Director Director;
 
     private final int ID;
 
     protected Agent(int id) {
         this.ID = id;
-        StudyRoom.release();
     }
 
-    public static void setGlobalVariables(int num_students, int students_for_party) {
+    public static void setGlobalVariables(int num_students, int students_for_party, Director director) {
         Num_Students = num_students;
         Students_For_Party = students_for_party;
+        Director = director;
     }
 
     protected int getID() {

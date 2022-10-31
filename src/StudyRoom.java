@@ -53,7 +53,8 @@ public class StudyRoom {
             if (scan.matches("[0-9]+") && scan.length() > 0) {
                 Students_For_Party = Integer.parseInt(scan);
                 if (Students_For_Party < MIN_STUDENTS_FOR_PARTY) {
-                    System.err.println("Invalid value, the minimum amount of students for a party is " + MIN_STUDENTS_FOR_PARTY);
+                    System.err.println(
+                            "Invalid value, the minimum amount of students for a party is " + MIN_STUDENTS_FOR_PARTY);
                 }
             } else {
                 System.err.println("Invalid value, try again");
@@ -61,13 +62,12 @@ public class StudyRoom {
         } while (Students_For_Party < MIN_STUDENTS_FOR_PARTY);
 
         scanner.close();
-
-        Agent.setGlobalVariables(Num_Students, Students_For_Party);
     }
 
     private static void createThreads() {
         // Creates the director
         Director director = new Director(0);
+        Agent.setGlobalVariables(Num_Students, Students_For_Party, director);
 
         // Create Director Thread
         Director = new Thread(director, "Director");

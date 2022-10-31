@@ -26,7 +26,6 @@ public class Director extends Agent {
 
     public void pre_protocol() {
         System.out.println("\t Mr. Director starts the round");
-
     }
 
     public void critical_section() {
@@ -38,7 +37,7 @@ public class Director extends Agent {
         Round++;
     }
 
-    public STATE getStatus() {
+    protected STATE getStatus() {
         return this.State;
     }
 

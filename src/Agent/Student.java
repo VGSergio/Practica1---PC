@@ -1,12 +1,16 @@
 package Agent;
 
+import java.util.Random;
+
 public class Student extends Agent {
 
     private final String NAME;
+    private final int STUDY_TIME;
 
     public Student(int id, String name) {
         super(id);
         this.NAME = name;
+        this.STUDY_TIME = new Random().nextInt(1000);
     }
 
     public String getName() {
