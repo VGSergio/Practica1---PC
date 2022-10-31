@@ -7,18 +7,9 @@ public class Student extends Agent {
     private final String NAME;
     private final int STUDY_TIME;
 
-    public Student(int id, String name) {
-        super(id);
+    public Student(String name) {
         this.NAME = name;
         this.STUDY_TIME = new Random().nextInt(1000);
-    }
-
-    public String getName() {
-        return this.NAME;
-    }
-
-    public String toString() {
-        return "Student: " + this.getName() + ", ID: " + this.getID();
     }
 
     public void run() {
@@ -31,13 +22,7 @@ public class Student extends Agent {
 
     @Override
     public void pre_protocol() {
-        synchronized (StudyRoom) {
-            try {
-                StudyRoom.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        
     }
 
     @Override

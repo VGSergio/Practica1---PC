@@ -11,24 +11,18 @@ public abstract class Agent implements Runnable {
     protected static int Num_Students;
     protected static int Students_For_Party;
     protected static Director Director;
+
     protected enum STATE {
         OUTSIDE, WAITING, INSIDE
     };
 
-    private final int ID;
-
-    protected Agent(int id) {
-        this.ID = id;
-    }
+    protected Agent() {
+    };
 
     public static void setGlobalVariables(int num_students, int students_for_party, Director director) {
         Num_Students = num_students;
         Students_For_Party = students_for_party;
         Director = director;
-    }
-
-    protected int getID() {
-        return this.ID;
     }
 
     public abstract void run();
@@ -38,6 +32,4 @@ public abstract class Agent implements Runnable {
     public abstract void critical_section();
 
     public abstract void post_protocol();
-
-    public abstract String toString();
 }

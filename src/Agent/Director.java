@@ -3,12 +3,11 @@ package Agent;
 public class Director extends Agent {
 
     protected STATE State;
-    
+
     private final int NUM_OF_ROUNDS = 3;
     private int Round = 1;
 
-    public Director(int id) {
-        super(id);
+    public Director() {
         this.State = STATE.OUTSIDE;
     }
 
@@ -21,11 +20,26 @@ public class Director extends Agent {
     }
 
     public void pre_protocol() {
-        System.out.println("\t Mr. Director starts the round");
+        int inside = Students_Inside.intValue();
+        if (inside == 0) {
+            State = STATE.OUTSIDE;
+        } else if (inside >= Students_For_Party) {
+            State = STATE.INSIDE;
+        } else {
+            State = STATE.WAITING;
+        }
     }
 
     public void critical_section() {
-
+        if (State==STATE.OUTSIDE){
+            System.out.println("\t The Director sees nobody in the study room");
+        } else if(State==STATE.WAITING){
+            System.out.println("\t The Director waits to enter. Doesn't disturb the students");
+            // TO DO
+        } else {
+            System.out.println("\t The Director enters the study room: THE PARTY IS OVER");
+            // TO DO
+        }
     }
 
     public void post_protocol() {
@@ -37,7 +51,4 @@ public class Director extends Agent {
         return this.State;
     }
 
-    public String toString() {
-        return "\t Director, ID: " + this.getID();
-    }
 }
