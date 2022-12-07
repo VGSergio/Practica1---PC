@@ -77,7 +77,7 @@ public class StudyRoom {
 
         // Create students threads
         for (int i = 0; i < Num_Students; i++) {
-            String name = "Student" + i;
+            String name = "Student " + (i+1);
             Student student = new Student(name);
             Thread s = new Thread(student, name);
             Students[i] = s;

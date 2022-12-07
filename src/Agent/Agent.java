@@ -16,8 +16,9 @@ public abstract class Agent implements Runnable {
         OUTSIDE, WAITING, INSIDE
     };
 
-    protected Agent() {
-    };
+    protected static Semaphore Classroom = new Semaphore(1, true);
+
+    protected Agent() {};
 
     public static void setGlobalVariables(int num_students, int students_for_party, Director director) {
         Num_Students = num_students;
@@ -29,7 +30,7 @@ public abstract class Agent implements Runnable {
 
     public abstract void pre_protocol();
 
-    public abstract void critical_section();
+    public abstract void critical_section() throws InterruptedException;
 
     public abstract void post_protocol();
 }
