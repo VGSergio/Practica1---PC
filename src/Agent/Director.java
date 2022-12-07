@@ -54,15 +54,15 @@ public class Director extends Agent {
 
     public void post_protocol() {
         Round++;
-        try {
-            Thread.sleep(new Random().nextInt(600));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     private void cleanStudyRoom() {
         while (Students_Inside.get() > 0) {
+        }
+        try {
+            Thread.sleep(new Random().nextInt(10));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
