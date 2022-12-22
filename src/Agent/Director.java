@@ -26,9 +26,9 @@ public class Director extends Agent {
 
     public void critical_section() {
         try {
-            Classroom.acquire();
+            Door.acquire();
+            Thread.sleep(3);
         } catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
         System.out.println("\t The Director starts the round");
@@ -38,32 +38,62 @@ public class Director extends Agent {
         if (inside == 0) {
             State = STATE.OUTSIDE;
             printStatus(State);
-            Classroom.release();
         } else if (inside < Students_For_Party) {
+            try {
+                Permits.acquire(Permits.availablePermits());
+            } catch (InterruptedException e) {
+            }
+            Permits.release(Students_For_Party - inside);
+            Door.release();
+
             State = STATE.WAITING;
             printStatus(State);
-            Classroom.release();
-        } else {
+
+            while (Permits.availablePermits() != 0) {
+            }
+
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             State = STATE.INSIDE;
             printStatus(State);
             cleanStudyRoom();
             System.out.println("\t The Director ends the round " + Round + " of " + NUM_OF_ROUNDS);
-            Classroom.release();
+        
+            Permits.release(Num_Students);
+        } else {
+            clean();
         }
+        Door.release();
     }
 
     public void post_protocol() {
         Round++;
+        try {
+            Thread.sleep(new Random().nextInt(2));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clean() {
+        State = STATE.INSIDE;
+        printStatus(State);
+        cleanStudyRoom();
+        System.out.println("\t The Director ends the round " + Round + " of " + NUM_OF_ROUNDS);
     }
 
     private void cleanStudyRoom() {
         while (Students_Inside.get() > 0) {
         }
         try {
-            Thread.sleep(new Random().nextInt(10));
+            Thread.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
     }
 
     private void printStatus(STATE state) {

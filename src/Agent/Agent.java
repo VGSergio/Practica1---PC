@@ -5,9 +5,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Agent implements Runnable {
 
-    protected static Semaphore StudyRoom = new Semaphore(1);
+    protected static Semaphore Permits;
+    protected static Semaphore Door = new Semaphore(1);
     protected static AtomicInteger Students_Inside = new AtomicInteger(0);
-    protected static AtomicInteger Students_Count = new AtomicInteger(0);
     protected static int Num_Students;
     protected static int Students_For_Party;
     protected static Director Director;
@@ -16,14 +16,11 @@ public abstract class Agent implements Runnable {
         OUTSIDE, WAITING, INSIDE
     };
 
-    protected static Semaphore Classroom = new Semaphore(1, true);
-
-    protected Agent() {};
-
     public static void setGlobalVariables(int num_students, int students_for_party, Director director) {
         Num_Students = num_students;
         Students_For_Party = students_for_party;
         Director = director;
+        Permits = new Semaphore(num_students, true);
     }
 
     public abstract void run();
