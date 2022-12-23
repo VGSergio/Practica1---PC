@@ -6,10 +6,12 @@ public class Student extends Agent {
 
     private final String NAME;
     private final int STUDY_TIME;
+    private final Director Director;
 
-    public Student(String name) {
+    public Student(String name, Director director) {
         this.NAME = name;
         this.STUDY_TIME = new Random().nextInt(1000);
+        this.Director = director;
     }
 
     public void run() {
@@ -28,7 +30,6 @@ public class Student extends Agent {
             Door.acquire();
             Permits.acquire();
             output();
-            Door.release();
         } catch (
 
         InterruptedException e) {
@@ -39,16 +40,17 @@ public class Student extends Agent {
     private void output() {
         int inside = Students_Inside.addAndGet(1);
 
-        try {
-            Thread.sleep(new Random().nextInt(10));
-        } catch(Exception e) {}
         printStudent("enters", inside);
         if (inside < Students_For_Party) {
             System.out.println(this.NAME + " studies");
+            Door.release();
         } else {
             System.out.println(this.NAME + ": PARTY!!!!!");
             if (Director.State == STATE.WAITING) {
                 System.out.println(this.NAME + ": Carefull, the Director is coming!!!!!!!!!");
+            } else {
+                
+            Door.release();
             }
         }
     }
@@ -63,12 +65,11 @@ public class Student extends Agent {
                 Permits.release();
             }
             if (inside == 0) {
-                if (Director.State == STATE.WAITING) {
+                if (Director.State == STATE.WAITING || Director.State == STATE.OUTSIDE) {
                     System.out.println(this.NAME + ": goodbye Mr. Director, you're left alone");
-                    Permits.acquire(Permits.availablePermits());
-                }
-                if (Director.State == STATE.INSIDE) {
-                    System.out.println(this.NAME + ": goodbye Mr. Director, you're left alone");
+                    if (Director.State == STATE.WAITING) {
+                        Permits.acquire(Permits.availablePermits());
+                    }
                 }
             }
         } catch (InterruptedException e) {

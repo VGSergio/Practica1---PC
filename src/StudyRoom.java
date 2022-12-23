@@ -67,7 +67,7 @@ public class StudyRoom {
     private static void createThreads() {
         // Creates the director
         Director director = new Director();
-        Agent.setGlobalVariables(Num_Students, Students_For_Party, director);
+        Agent.setGlobalVariables(Num_Students, Students_For_Party);
 
         // Create Director Thread
         Director = new Thread(director, "Director");
@@ -78,7 +78,7 @@ public class StudyRoom {
         // Create students threads
         for (int i = 0; i < Num_Students; i++) {
             String name = "Student " + (i+1);
-            Student student = new Student(name);
+            Student student = new Student(name, director);
             Thread s = new Thread(student, name);
             Students[i] = s;
         }

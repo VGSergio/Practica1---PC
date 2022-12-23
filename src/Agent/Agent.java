@@ -10,17 +10,22 @@ public abstract class Agent implements Runnable {
     protected static AtomicInteger Students_Inside = new AtomicInteger(0);
     protected static int Num_Students;
     protected static int Students_For_Party;
-    protected static Director Director;
 
     protected enum STATE {
         OUTSIDE, WAITING, INSIDE
     };
 
-    public static void setGlobalVariables(int num_students, int students_for_party, Director director) {
+    public static void setGlobalVariables(int num_students, int students_for_party) {
         Num_Students = num_students;
         Students_For_Party = students_for_party;
-        Director = director;
         Permits = new Semaphore(num_students, true);
+    }
+
+    protected void SleepThread(int time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+        }
     }
 
     public abstract void run();

@@ -27,7 +27,6 @@ public class Director extends Agent {
     public void critical_section() {
         try {
             Door.acquire();
-            Thread.sleep(3);
         } catch (InterruptedException e) {
         }
 
@@ -52,16 +51,8 @@ public class Director extends Agent {
             while (Permits.availablePermits() != 0) {
             }
 
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            State = STATE.INSIDE;
-            printStatus(State);
-            cleanStudyRoom();
-            System.out.println("\t The Director ends the round " + Round + " of " + NUM_OF_ROUNDS);
-        
+            clean();
+
             Permits.release(Num_Students);
         } else {
             clean();
@@ -72,13 +63,14 @@ public class Director extends Agent {
     public void post_protocol() {
         Round++;
         try {
-            Thread.sleep(new Random().nextInt(2));
+            Thread.sleep(new Random().nextInt(10));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     public void clean() {
+        SleepThread(3);
         State = STATE.INSIDE;
         printStatus(State);
         cleanStudyRoom();
@@ -88,12 +80,6 @@ public class Director extends Agent {
     private void cleanStudyRoom() {
         while (Students_Inside.get() > 0) {
         }
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void printStatus(STATE state) {
