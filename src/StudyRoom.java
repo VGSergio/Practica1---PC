@@ -1,16 +1,20 @@
+// Korn, Andreas Manuel
+// Vega García, Sergio
+// Enlace a video
+
 import java.util.Scanner;
 
 import Agent.*;
 
 public class StudyRoom {
 
-    private static int Num_Students;
-    private static int Students_For_Party;
-    private static Thread[] Students;
-    private static Thread Director;
+    private static int Num_Students; // Amount of students that will go to the study room
+    private static int Students_For_Party; // Amount of students needed to start the party
+    private static Thread[] Students; // Students threads
+    private static Thread Director; // Director thread
 
-    private static final int MIN_STUDENTS = 1;
-    private static final int MIN_STUDENTS_FOR_PARTY = 2;
+    private static final int MIN_STUDENTS = 1; // Minimum amount of students that will enter the study room
+    private static final int MIN_STUDENTS_FOR_PARTY = 2; // Minumum amount of students to start a party
 
     public static void main(String[] args) {
         System.out.println("STUDY ROOM SIMULATION");
@@ -28,6 +32,9 @@ public class StudyRoom {
         joinThreads();
     }
 
+    /**
+     * Function that scans the user input to retrieve the different variables.
+     */
     private static void getStudentsData() {
         Scanner scanner = new Scanner(System.in);
         Num_Students = 0;
@@ -64,6 +71,9 @@ public class StudyRoom {
         scanner.close();
     }
 
+    /**
+     * Function that creates and initializes the director and students threads.
+     */
     private static void createThreads() {
         // Creates the director
         Director director = new Director();
@@ -77,13 +87,16 @@ public class StudyRoom {
 
         // Create students threads
         for (int i = 0; i < Num_Students; i++) {
-            String name = "Student " + (i+1);
+            String name = "Student " + (i + 1);
             Student student = new Student(name, director);
             Thread s = new Thread(student, name);
             Students[i] = s;
         }
     }
 
+    /**
+     * Function that starts the Director and students threads.
+     */
     private static void startThreads() {
         Director.start();
         for (Thread student : Students) {
@@ -91,6 +104,9 @@ public class StudyRoom {
         }
     }
 
+    /**
+     * Function that joins the Director and students threads.
+     */
     private static void joinThreads() {
         try {
             Director.join();

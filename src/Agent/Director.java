@@ -4,15 +4,21 @@ import java.util.Random;
 
 public class Director extends Agent {
 
-    protected STATE State;
+    protected STATE State; // Director's state
 
-    private final int NUM_OF_ROUNDS = 3;
-    private int Round = 1;
+    private final int NUM_OF_ROUNDS = 3; // Rounds that the director will make in the day
+    private int Round = 1; // Round counter
 
+    /**
+     * Director constructor
+     */
     public Director() {
         this.State = STATE.OUTSIDE;
     }
 
+    /**
+     * Director thread run method
+     */
     public void run() {
         while (Round <= NUM_OF_ROUNDS) {
             pre_protocol();
@@ -69,6 +75,11 @@ public class Director extends Agent {
         }
     }
 
+    /**
+     * Function executed when the students starts a party, the director stops the
+     * party,
+     * waits for everyone to leave and ends the round
+     */
     public void clean() {
         SleepThread(3);
         State = STATE.INSIDE;
@@ -77,11 +88,20 @@ public class Director extends Agent {
         System.out.println("\t The Director ends the round " + Round + " of " + NUM_OF_ROUNDS);
     }
 
+    /**
+     * Function to make the director wait until all the students leave the study
+     * room
+     */
     private void cleanStudyRoom() {
         while (Students_Inside.get() > 0) {
         }
     }
 
+    /**
+     * Function to print the correspondig output depending on the Director's state
+     * 
+     * @param state
+     */
     private void printStatus(STATE state) {
         switch (state) {
             case OUTSIDE:
