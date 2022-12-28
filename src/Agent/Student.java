@@ -56,11 +56,13 @@ public class Student extends Agent {
                 Permits.release();
             }
             if (inside == 0) {
-                if (Director.State == STATE.WAITING || Director.State == STATE.OUTSIDE) {
+                if (Director.State == STATE.WAITING) {
+                    System.out.println(
+                            this.NAME + ": goodbye Mr. Director, you can enter if you want, no one is inside.");
+                    Permits.acquire(Permits.availablePermits());
+                }
+                if (Director.State == STATE.INSIDE) {
                     System.out.println(this.NAME + ": goodbye Mr. Director, you're left alone");
-                    if (Director.State == STATE.WAITING) {
-                        Permits.acquire(Permits.availablePermits());
-                    }
                 }
             }
         } catch (InterruptedException e) {
@@ -82,6 +84,7 @@ public class Student extends Agent {
             System.out.println(this.NAME + ": PARTY!!!!!");
             if (Director.State == STATE.WAITING) {
                 System.out.println(this.NAME + ": Carefull, the Director is coming!!!!!!!!!");
+                Director.State = STATE.INSIDE;
             } else {
 
                 Door.release();

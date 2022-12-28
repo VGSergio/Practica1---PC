@@ -61,6 +61,7 @@ public class Director extends Agent {
 
             Permits.release(Num_Students);
         } else {
+            State = STATE.INSIDE;
             clean();
         }
         Door.release();
@@ -81,9 +82,10 @@ public class Director extends Agent {
      * waits for everyone to leave and ends the round
      */
     public void clean() {
-        SleepThread(3);
-        State = STATE.INSIDE;
-        printStatus(State);
+        SleepThread(5);
+        if (State == STATE.INSIDE) {
+            printStatus(State);
+        }
         cleanStudyRoom();
         System.out.println("\t The Director ends the round " + Round + " of " + NUM_OF_ROUNDS);
     }
