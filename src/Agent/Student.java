@@ -86,7 +86,6 @@ public class Student extends Agent {
                 System.out.println(this.NAME + ": Carefull, the Director is coming!!!!!!!!!");
                 Director.State = STATE.INSIDE;
             } else {
-
                 Door.release();
             }
         }

@@ -1,6 +1,6 @@
 // Korn, Andreas Manuel
 // Vega García, Sergio
-// Enlace a video
+// https://youtu.be/feaRDGBK8IM
 
 import java.util.Scanner;
 
